@@ -57,9 +57,9 @@ func (strategy DefaultUserSyncStrategy) ProduceSyncRequests(dbUsers spec.PgUserM
 			r := spec.PgSyncUserRequest{}
 			newMD5Password := util.NewEncryptor(strategy.PasswordEncryption).PGUserPassword(newUser)
 
-			// do not compare for roles coming from docker image
-			if dbUser.Password != newMD5Password {
-				r.User.Password = newMD5Password
+			if dbUser.Password != newMD5Password { // 如果密码不相等
+				r.User.Password = dbUser.Password
+				// r.User.Password = newMD5Password
 				r.Kind = spec.PGsyncUserAlter
 			}
 			if addNewRoles, equal := util.SubstractStringSlices(newUser.MemberOf, dbUser.MemberOf); !equal {

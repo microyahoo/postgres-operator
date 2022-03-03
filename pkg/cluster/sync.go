@@ -856,7 +856,7 @@ func (c *Cluster) syncRoles() (err error) {
 		}
 	}
 
-	dbUsers, err = c.readPgUsersFromDatabase(userNames)
+	dbUsers, err = c.readPgUsersFromDatabase(userNames) // 从数据库中读取 pg users
 	if err != nil {
 		return fmt.Errorf("error getting users from the database: %v", err)
 	}

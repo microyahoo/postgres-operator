@@ -2,14 +2,15 @@ apiVersion: "v1"
 kind: "Service"
 metadata:
   name: "postgres-operator-ui"
-  namespace: "default"
+  namespace: "pgo"
   labels:
     application: "postgres-operator-ui"
 spec:
-  type: "ClusterIP"
+  type: "NodePort"
   selector:
     name: "postgres-operator-ui"
   ports:
     - port: 80
       protocol: "TCP"
       targetPort: 8081
+      nodePort: 80
